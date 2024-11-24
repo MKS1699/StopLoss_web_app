@@ -6,7 +6,8 @@ export interface AdminPanelSliceTypes {
     | "createPost"
     | "editPost"
     | "userSettings"
-    | "panelSettings";
+    | "panelSettings"
+    | "ipo";
   workingOnPost: boolean;
   postUploadStatus: "idle" | "uploading" | "uploaded";
   userPosts: PostSliceTypes[][];

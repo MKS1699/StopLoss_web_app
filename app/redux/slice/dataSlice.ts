@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { DATASLICETYPES } from "@/app/types/slice_types/dataSliceTypes";
+import { IPOTypes } from "@/app/types/slice_types/ipoSliceTypes";
 
 const EMPTYSTATE = {
   latestPosts: [],
@@ -22,6 +23,8 @@ const EMPTYSTATE = {
     tutorialPosts: [],
   },
   upcomingIPOEntries: [],
+  ipoCards: [],
+  posts: [],
 };
 
 const initialState: DATASLICETYPES = {
@@ -44,6 +47,8 @@ const initialState: DATASLICETYPES = {
     tutorialPosts: [],
   },
   upcomingIPOEntries: [],
+  ipoCards: [],
+  posts: [],
 };
 
 export const dataSlice = createSlice({
@@ -135,13 +140,24 @@ export const dataSlice = createSlice({
       state.post = action.payload.post;
     },
 
+    // ipoCards
+    setIPOCards: (state, action: PayloadAction<{ ipoCards: IPOTypes[] }>) => {
+      state.ipoCards = action.payload.ipoCards;
+    },
+    // posts,
+    setDataSlicePosts: (state, action: PayloadAction<{ posts: any[] }>) => {
+      state.posts = action.payload.posts;
+    },
     // resetState
     resetDataSliceState: (state) => {
       state.categoryPosts = EMPTYSTATE.categoryPosts;
       state.latestPosts = EMPTYSTATE.latestPosts;
       state.post = EMPTYSTATE.post;
       state.postsSizes = EMPTYSTATE.postsSizes;
+      // remove upcoming entries
       state.upcomingIPOEntries = EMPTYSTATE.upcomingIPOEntries;
+      state.ipoCards = EMPTYSTATE.ipoCards;
+      state.posts = EMPTYSTATE.posts;
     },
   },
 });
@@ -152,6 +168,8 @@ export const {
   setDataUpcomingIPOEntries,
   setDataCategoryPosts,
   setDataPost,
+  setIPOCards,
+  setDataSlicePosts,
   resetDataSliceState,
 } = dataSlice.actions;
 

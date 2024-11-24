@@ -1,3 +1,5 @@
+import { IPOTypes } from "../types/slice_types/ipoSliceTypes";
+
 export const validateCredentials = (
   credential: string,
   credentialType: "name" | "password"
@@ -79,4 +81,77 @@ export function createINRString(val: string | number): string {
   }
   // returning the currency
   return currencyString;
+}
+
+// search function for posts searching
+export function searchRelatedPosts(query: string, posts: any): any {
+  // to do optimization
+  const QueryRelatedPostsIdArr: string[] = [];
+  const ResultArr: any[] = [];
+  const queryToSearch = query.toString().trim().toLowerCase();
+
+  posts.map((post: any, postIndex: number) => {
+    const {
+      _id,
+      postTitle,
+      postImage,
+      postDescription,
+      postAuthors,
+    }: {
+      _id: string;
+      postTitle: string;
+      postImage: { caption: string };
+      postDescription: string;
+      postAuthors: string[];
+    } = post;
+    const { caption }: { caption: string } = postImage;
+
+    if (
+      // queryToSearch
+      postTitle.toLowerCase().includes(queryToSearch) ||
+      postTitle.toLowerCase().includes(queryToSearch) ||
+      postDescription.toLowerCase().includes(queryToSearch) ||
+      caption.toLowerCase().includes(queryToSearch)
+    ) {
+      QueryRelatedPostsIdArr.push(_id);
+    }
+
+    postAuthors.map((author: string) => {
+      if (author.toLowerCase().includes(queryToSearch)) {
+        QueryRelatedPostsIdArr.push(_id);
+      }
+    });
+  });
+
+  for (let relatedPostId of QueryRelatedPostsIdArr) {
+    for (let post of posts) {
+      if (post._id === relatedPostId) {
+        ResultArr.push(post);
+      }
+    }
+  }
+
+  return ResultArr;
+}
+
+export function searchIPO(query: string, ipoCards: any[]) {
+  const queryToSearch = query.toString().trim().toLowerCase();
+  console.log(query);
+  let resultQueryArr: any[] = [];
+  let relatedIPOArr: any[] = [];
+  ipoCards.map((ipo) => {
+    if (ipo.name.toString().trim().toLowerCase().includes(queryToSearch)) {
+      relatedIPOArr.push(ipo._id);
+    }
+  });
+
+  for (let relatedId of relatedIPOArr) {
+    for (let ipoCard of ipoCards) {
+      if (ipoCard._id === relatedId) {
+        resultQueryArr.push(ipoCard);
+      }
+    }
+  }
+
+  return resultQueryArr;
 }

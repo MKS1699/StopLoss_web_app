@@ -1,0 +1,128 @@
+/* vertical menu animations */
+.width-expand {
+  animation: expandWidth 1s 1 ease-in forwards;
+}
+
+.width-collapse {
+  animation: collapseWidth 1s 1 ease-in forwards;
+}
+
+@keyframes expandWidth {
+  from {
+    width: 64px;
+  }
+  to {
+    width: 180px;
+  }
+}
+
+@keyframes collapseWidth {
+  from {
+    width: 180px;
+  }
+  to {
+    width: 64px;
+  }
+}
+
+/* vertical menu pointer animation */
+.pointer-expand {
+  animation: expandPointer 1s 1 forwards ease-in;
+}
+.pointer-collapse {
+  animation: collapsePointer 1s 1 forwards ease-in;
+}
+
+@keyframes expandPointer {
+  from {
+    rotate: 180deg;
+  }
+  to {
+    rotate: 0deg;
+  }
+}
+
+@keyframes collapsePointer {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 180deg;
+  }
+}
+
+/* show menu titles */
+.title-show {
+  animation: showTitle 1s 1 forwards ease-in;
+  position: relative;
+}
+
+.title-hide {
+  animation: hideTitle 1s 1 forwards ease-in;
+  position: relative;
+}
+
+@keyframes showTitle {
+  from {
+    opacity: 0;
+    left: -100px;
+    z-index: -100;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 110px;
+    left: 0;
+    z-index: 0;
+  }
+}
+
+@keyframes hideTitle {
+  from {
+    opacity: 1;
+    width: 110px;
+    left: 0;
+    z-index: 0;
+  }
+  to {
+    opacity: 0;
+    width: 0;
+    left: -100px;
+    z-index: -100;
+  }
+}
+
+/* user menu animations */
+.user-menu-show {
+  animation: showUserMenu 1s ease-in 1 forwards;
+}
+
+.user-menu-hide {
+  animation: hideUserMenu 1s ease-in 1 forwards;
+}
+
+@keyframes showUserMenu {
+  from {
+    height: 0;
+    opacity: 0;
+    z-index: -1;
+  }
+  to {
+    height: 220px;
+    opacity: 1;
+    z-index: 0;
+  }
+}
+
+@keyframes hideUserMenu {
+  from {
+    height: 220px;
+    opacity: 1;
+    z-index: 0;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+    z-index: -1;
+  }
+}

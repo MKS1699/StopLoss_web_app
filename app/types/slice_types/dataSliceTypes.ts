@@ -1,3 +1,6 @@
+import { APIIPOTypes } from "../api_types/ipoTypes";
+import { IPOTypes } from "./ipoSliceTypes";
+
 export interface DATASLICETYPES {
   latestPosts: {}[] | any;
   post: {};
@@ -27,4 +30,6 @@ export interface DATASLICETYPES {
         __v: number;
       }[]
     | {}[];
+  ipoCards: APIIPOTypes[];
+  posts: any[];
 }

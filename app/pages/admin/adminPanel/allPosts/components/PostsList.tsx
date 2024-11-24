@@ -8,7 +8,7 @@ interface PostsListPropsTypes {
 
 const PostsList = ({ posts, updateIsPostDeleted }: PostsListPropsTypes) => {
   return (
-    <div className="w-full h-full flex flex-col justify-items-start gap-y-2 relative">
+    <div className="w-full h-full flex-1 flex flex-col justify-items-start gap-y-2 relative">
       {posts?.map((post: any, index: number) => {
         // return index;
         const { _id, postTitle, postDescription, postImage } = post;
