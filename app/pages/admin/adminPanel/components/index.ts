@@ -32,6 +32,8 @@ import PostExternalLinks from "./PostExternalLinks";
 import PostExternalLink from "./PostExternalLink";
 
 import PostPublishDialog from "./PostPublishDialog";
+
+import VerticalMenu from "./VerticalMenu";
 export {
   AdminTitleBar,
   User,
@@ -65,4 +67,5 @@ export {
   PostExternalLinks,
   PostExternalLink,
   PostPublishDialog,
+  VerticalMenu,
 };

@@ -15,6 +15,7 @@ const AllPosts = () => {
 
   // states from store
   const userId = useAppSelector((state) => state.session.userId);
+  const userName = useAppSelector((state) => state.session.userName);
   const userPosts = useAppSelector((state) => state.adminPanel.userPosts);
   const postsToShow = useAppSelector((state) => state.adminPanel.postsToShow);
 
@@ -58,6 +59,10 @@ const AllPosts = () => {
   return (
     /* All Posts Section */
     <div className="w-full min-h-screen p-2 flex flex-col justify-between gap-y-2 text-lg relative gap-4">
+      <h3 className="w-full h-fit text-3xl text-center">
+        All Posts of&nbsp;
+        {userName.charAt(0).toUpperCase().concat(userName.slice(1))}
+      </h3>
       {!firstPostsPageLoading && (
         <>
           {/* Posts List section */}

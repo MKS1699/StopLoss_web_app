@@ -24,9 +24,10 @@ const RightDiv = ({ className }: RightDivPropsTypes) => {
 
   return (
     <div className={`flex flex-col justify-evenly ${className}`}>
-      {upcomingIPOEntries.length > 0 && (
+      {/* upcoming IPO feature is deprecated */}
+      {/* {upcomingIPOEntries.length > 0 && (
         <UpcomingIPO className="" key={`desktop-upcoming ipo`} />
-      )}
+      )} */}
       {ipo > 0 && <PostSection postType="ipo" key="ipo-posts" limit={5} />}
       {companyProfile > 0 && (
         <PostSection postType="company_profile" key="company-posts" limit={5} />

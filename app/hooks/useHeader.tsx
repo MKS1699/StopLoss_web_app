@@ -16,9 +16,16 @@ const useHeader = () => {
   const token = useAppSelector((state) => state.session.token);
 
   useEffect(() => {
-    setHeaders({ authorization: `bearer ${token}` });
+    if (token.length > 0) {
+      setHeaders({ authorization: `bearer ${token}` });
+    }
   }, [token]);
-  return headers;
+
+  if (headers.authorization.length > 0) {
+    return headers;
+  } else {
+    return null;
+  }
 };
 
 export default useHeader;

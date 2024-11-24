@@ -13,21 +13,25 @@ import {
 import { resetPostState } from "@/app/redux/slice/postSlice";
 import { resetSession } from "@/app/redux/slice/sessionSlice";
 import { StyledComponent } from "@/app/types/component_types";
+import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { MdOutlineEditNote, MdOutlinePostAdd } from "react-icons/md";
-
+// styles
+import "../components/css/styles.css";
 interface UserMenuPropsTypes extends StyledComponent {
-  showUserMenu: boolean;
+  showUserMenu?: boolean;
+  setShowUserMenu?: (val: boolean) => void;
   guestMode: boolean;
-  setShowUserMenu: (val: boolean) => void;
   userName: string;
+  menuExpansion?: "open" | "close" | "idle";
 }
 
 const UserMenu = ({
   showUserMenu,
+  setShowUserMenu,
   guestMode,
   userName,
-  setShowUserMenu,
+  menuExpansion,
 }: UserMenuPropsTypes) => {
   const dispatch = useAppDispatch();
 
@@ -35,13 +39,20 @@ const UserMenu = ({
   // logout function
   function logout() {
     if (!guestMode) {
-      dispatch(resetSession()); // reset session
-      dispatch(resetPostState()); // reset post state
-      dispatch(resetAdminPanelState()); // reset admin panel state
-      dispatch(setAppAdminLoginStatus({ loginStatus: false })); // reset login
+      // reset session
+      dispatch(resetSession());
+      // reset post state
+      dispatch(resetPostState());
+      // reset admin panel state
+      dispatch(resetAdminPanelState());
+      // reset login
+      dispatch(setAppAdminLoginStatus({ loginStatus: false }));
+      // back to login screen
       dispatch(setAdminScreen({ screen: "login" }));
+      // logging out message
       toast.success(`${userName} successfully logged out.`);
-      setShowUserMenu(false);
+      // closing user menu
+      // setShowUserMenu(false);
     } else {
       dispatch(resetSession());
       dispatch(resetAdminPanelState());
@@ -50,74 +61,47 @@ const UserMenu = ({
       dispatch(setAdminScreen({ screen: "login" }));
       dispatch(setAppAdminGuestMode({ guestMode: false }));
       toast.success(`Logged out.`);
-      setShowUserMenu(false);
+      // setShowUserMenu(false);
     }
   }
 
-  // create post
-  function createPost() {
-    dispatch(changeAdminPanelScreen({ screen: "createPost" }));
-    toast("Create Post", {
-      icon: <MdOutlinePostAdd size="2rem" />,
-    });
-    setShowUserMenu(false);
-  }
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  // edit post
-  function editPost() {
-    dispatch(changeAdminPanelScreen({ screen: "editPost" }));
-    toast("Editing Post", { icon: <MdOutlineEditNote size="2rem" /> });
-    setShowUserMenu(false);
-  }
-
-  // setting's menu for the user
-  function settings() {
-    dispatch(changeAdminPanelScreen({ screen: "userSettings" }));
-    setShowUserMenu(false);
-  }
-
-  // all posts function
-  function allPosts() {
-    dispatch(changeAdminPanelScreen({ screen: "allPosts" }));
-    setShowUserMenu(false);
-  }
-
+  useEffect(() => {
+    if (menuExpansion === "close") {
+      menuRef.current?.classList?.replace("user-menu-show", "user-menu-hide");
+    } else if (menuExpansion === "open") {
+      menuRef.current?.classList?.replace("user-menu-hide", "user-menu-show");
+    } else {
+      menuRef.current?.classList?.add("user-menu-hide");
+    }
+  }, [menuExpansion]);
   return (
+    // bg-[#4cb050]  dark:bg-[#003b31]
     <div
-      className={`${
-        showUserMenu ? "grid" : "hidden"
-      } absolute w-28 md:w-[85%] h-auto py-3 md:py-2 px-2 bg-[#4cb050]  dark:bg-[#003b31] rounded-md  text-[#003b31] dark:text-[#4cb050] top-28 md:top-0 md:grid-flow-col z-30`}
+      className="w-full h-auto flex flex-col items-center justify-evenly bg-light bg-opacity-20 rounded-sm p-1 text-lg text-center relative"
+      ref={menuRef}
     >
-      <p
-        className="cursor-pointer mx-1 my-1 text-base md:border-r-2 md:border-r-solid md:border-r-[#003b31] md:dark:border-r-[#4cb050] md:text-center hover:scale-110 transition-all ease-linear "
-        onClick={allPosts}
-      >
-        All Posts
-      </p>
-      <p
-        className="cursor-pointer mx-1 my-1 text-base md:border-r-2 md:border-r-solid md:border-r-[#003b31] md:dark:border-r-[#4cb050] md:text-center hover:scale-110 transition-all ease-linear "
-        onClick={createPost}
-      >
-        Create Post
-      </p>
-      <p
-        className="cursor-pointer mx-1 my-1 text-base md:border-r-2 md:border-r-solid md:border-r-[#003b31] md:dark:border-r-[#4cb050] md:text-center hover:scale-110 transition-all ease-linear "
-        onClick={editPost}
-      >
-        Edit Post
-      </p>
-      <p
-        className="cursor-pointer mx-1 my-1 text-base md:border-r-2 md:border-r-solid md:border-r-[#003b31] md:dark:border-r-[#4cb050] md:text-center hover:scale-110 transition-all ease-linear "
-        onClick={settings}
-      >
-        Settings
-      </p>
-      <p
-        className="cursor-pointer mx-1 my-1 text-base md:text-center hover:scale-110 transition-all ease-linear "
+      {/* to do menu functions */}
+      {/* todo: change user profile picture */}
+      <div className="w-full border-b-2 border-b-solid border-b-[#c0c0c0] my-2">
+        Profile Picture
+      </div>
+      {/* todo : change password menu functionality */}
+      <div className="w-full border-b-2 border-b-solid border-b-[#c0c0c0] my-2">
+        Password
+      </div>
+      {/* todo: change user name functionality */}
+      <div className="w-full border-b-2 border-b-solid border-b-[#c0c0c0] my-2">
+        User&nbsp;Name
+      </div>
+      {/* logging out the user */}
+      <div
+        className="w-full border-b-2 border-b-solid border-b-[#c0c0c0] my-2"
         onClick={logout}
       >
         Logout
-      </p>
+      </div>
     </div>
   );
 };

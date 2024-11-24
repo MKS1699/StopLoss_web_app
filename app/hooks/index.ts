@@ -11,6 +11,7 @@ import useHeader from "./useHeader";
 import useGetPostsByUser from "./apiHooks/useGetPostsByUser";
 import useDeletePostById from "./apiHooks/useDeletePostById";
 import useRememberMe from "./useRememberMe";
+import useIPOCardValidation from "./useIPOCardValidation";
 export {
   useAppDispatch,
   useAppSelector,
@@ -21,4 +22,5 @@ export {
   useGetPostsByUser,
   useDeletePostById,
   useRememberMe,
+  useIPOCardValidation,
 };

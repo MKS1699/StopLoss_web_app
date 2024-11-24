@@ -6,6 +6,7 @@ import postSlice from "./postSlice";
 import signUpSlice from "./signUpSlice";
 import adminPanelSlice from "./adminPanelSlice";
 import dataSlice from "./dataSlice";
+import ipoSlice from "./ipoSlice";
 export {
   appSlice,
   loginSlice,
@@ -14,4 +15,5 @@ export {
   signUpSlice,
   adminPanelSlice,
   dataSlice,
+  ipoSlice,
 };
